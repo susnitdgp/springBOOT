@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+
+	<div th:fragment="header">
+	<div class="row-fluid">
+	<div class="span6">
+		
+		<img src="/pics/ntpc_dpm_final.png" th:src="@{/pics/ntpc_dpm_final.png}" width="450px" height="80px"/>
+	
+	</div>
+	
+	
+	
+	<div class="span2" style="margin-left:0px;padding-left:0px;">
+		<div  sec:authorize="isAuthenticated()">
+		
+		
+	
+		</div>
+		<div  sec:authorize="isAnonymous()">
+			<!-- 
+			
+			 -->
+		</div>
+	
+	</div>
+	
+	<div class="span4 text-right">
+		<div  sec:authorize="isAuthenticated()">
+		<form th:action="@{/logout}" method="post">
+			<a href="/home"><i class="icon-home"></i> Home</a>
+			<i class="icon-user"></i> <span class="label label-info" sec:authentication="name"> Susanta</span>
+			<i class="icon-user"></i> <span class="label label-info" sec:authentication="principal.dept_name"> Susanta</span>
+			<button type="submit" value="Sign Out" class="btn btn-inverse btn-mini"><i class=" icon-white icon-off"></i> Sign Out</button>
+		</form>
+		</div>
+		
+		<div  sec:authorize="isAnonymous()">
+		
+			<ul class="nav nav-pills">
+	  	
+	  			<li><a href="/dpm/BrowseFileSystem"><i class="icon-home"></i > Home</a></li>
+				<li class="disabled"><a href="#"><i class="icon-info-sign"></i> About</a></li>
+				<li class="disabled"><a href="#"><i class="icon-user"></i> Logged in as Guest</a></li>
+				
+			</ul>
+			
+		</div>
+	</div>
+	
+	
+	</div>
+	
+		
+	
+	</div>
+</body>
+</html>

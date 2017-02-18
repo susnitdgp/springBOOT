@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION MENU</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/gatepass/home">Home <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="active text-right"><a href="/gatepass/addvendor">Add Vendor <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		 
+	</ul>
+
+
+</div>
+
+
+ <div layout:fragment="content">
+ 
+ <blockquote>
+	  <p>List of Folder/Files available in Operation Department Share directory</p>
+	  <small>From <cite title="Source Title">Tstps Eapps Admin</cite></small>
+ 
+
+ 		<h4>ADD VENDOR SUCCESS</h4>
+ 
+ 		<h1>Result</h1>
+    
+   			Congratulations!
+   			<span th:text="${personFormSuccess.name}"></span>
+   			 You are old enough to sign up for this site.
+ 
+ 			
+ 			Uploaded file id: <p th:text="${id}" />
+
+			<a href="/gatepass/addvendor">Submit to add vendor</a>
+			
+			<img src="/gatepass/image" th:src="@{/gatepass/image(id=${id})}"/>
+			 
+			 
+			 <th:block sec:authorize="hasRole('ROLE_USERsss')">
+				 HHHHH
+			 
+			 </th:block>
+			 
+			 <div  sec:authorize="isAuthenticated()">
+			 	true
+			 </div>
+			 
+</blockquote>			 
+
+</div>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+	
+	
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION LIST</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/dpm/BrowseFileSystem">EAPPS DPM  <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/home">EAPPS SMS<i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  
+		  <li class="text-right"><a href="/home/listProcess">Active Process <span class="badge badge-success" th:text="${process_count}">2</span><i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="active text-right"><a href="/home/pendingTaskList">Task Pending <span class="badge badge-success" th:text="${pending_task_count}">2</span> <i class="icon-arrow-right"></i></a></li>
+		   <li class="divider"></li>
+		  <li class="text-right"><a href="/home/pendingTaskList">Task Finished <span class="badge badge-success" th:text="${completed_task_count}">2</span> <i class="icon-arrow-right"></i></a></li>
+	</ul>
+
+
+</div>
+
+ <div layout:fragment="content">
+ 
+ 
+
+ 	<ul class="breadcrumb">
+		  <li>
+			<i class="icon-home"></i> TSTPS E-APPS LIST
+		  </li>
+	 
+	</ul>
+
+
+	<blockquote>
+	<span class="label label-info">LIST OF PENDING TASK FOR ASSIGNEE:LOGGED IN USER</span>
+  	<small>from <cite title="Source Title">TSTPS-EAPPS ADMIN</cite></small>
+	
+	
+		
+	  		
+	  	<div th:if="${#lists.isEmpty(tasks)}" class="alert alert-error">
+ 					No Pending tasks available.
+		</div>
+		
+		<div th:if="${not #lists.isEmpty(tasks)}">
+		
+			 <table id="task_list" class="table">
+              <thead>
+                <tr>
+                  <th>
+                  	ID 
+                  </th>
+                  <th>
+                  	Name
+                  </th>
+                  <th>
+                  <a href="#">CREATE-TIME <i class="icon-arrow-down"></i></a>
+                  </th>
+                  <th>
+                  PROCESS-ID
+                  </th>
+                  <th>
+                  ACTION
+                  </th>
+                                 
+                </tr>
+              </thead>
+              <tbody>
+              <tr th:each="task,iterationStatus : ${tasks}">
+              <td  th:text="${task.id}">1</td>
+              <td  th:text="${task.name}">Name</td>
+              <td  th:text="${task.createTime}">Name</td>
+              <td  th:text="${task.processId}">Name</td>
+              <td><a href="#" th:href="@{${task_exec_base_url}(taskId=${task.id})}" class="btn btn-mini"><i class="icon-asterisk"></i> Execute</a></td>
+              </tr>
+              
+              </tbody>
+           </table>
+			 
+		</div>		 
+		
+		
+	 
+	</blockquote>
+
+		
+		
+			
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION MENU</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/home">Home <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/sendOne">SMS Send <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="active text-right"><a href="/sms/outGoing">SMS Outgoing <i class="icon-arrow-right"></i></a></li>
+	</ul>
+	
+	
+	
+
+</div>
+
+
+ <div layout:fragment="content">
+ 
+  <ul class="breadcrumb">
+		  <li class="active">
+		 	<i class="icon-envelope"></i> List of Outgoing Message Yet to SEND
+		  </li>
+	 
+  </ul>
+ 
+ <blockquote>
+ 	
+ 	<div class="btn-group">
+	  <button class="btn">Left Menu for</button>
+	  <button class="btn">Middle</button>
+	  <button class="btn">Right</button>
+	</div>
+ 
+	<div th:if="${#lists.isEmpty(out_box_list)}" class="alert alert-error">
+ 					No Pending Messages available.
+	</div>
+ 		
+ 	
+	
+ 	  <div th:if="${not #lists.isEmpty(out_box_list)}">
+ 	  	 
+ 	  	 <table id="outgoing_sms_list" class="table">
+              <thead>
+                <tr>
+                  <th>
+                  
+                  	<a href="#">ID <i class="icon-arrow-down"></i></a>
+                  
+                  </th>
+                  <th>
+                  <a href="#">Insert Time <i class="icon-arrow-down"></i></a>
+                  </th>
+                  <th>Destination</th>
+                  <th>Text</th>
+                  <th>CreatorID</th>
+                                 
+                </tr>
+              </thead>
+              <tbody>
+              <tr th:each="sms,iterationStatus : ${out_box_list}">
+              <td  th:text="${sms.id}">1</td>
+              <td  th:text="${sms.InsertIntoDB}">Number</td>
+              <td  th:text="${sms.TextDecoded}">Text</td>
+              <td  th:text="${sms.DestinationNumber}">Number</td>
+              <td  th:text="${sms.CreatorID}">CreatorID</td>
+              </tr>
+              
+              </tbody>
+           </table>
+ 	  
+ 	  </div>
+ 
+ 	  <div class="pagination pagination-right">
+		  
+		  		<ul>
+					<li class="disabled">
+					
+					<a href="#"><span th:text="'Displaying ' + ${pager.currentIndex} + ' of ' + ${pager.totalPageCount} + ' Pages'"></span></a>
+					</li>
+		  
+		  		</ul>
+		  
+		  <ul class="pagination">
+					<li th:class="${pager.currentIndex == 1}? 'disabled' : ''"><span
+						th:if='${pager.currentIndex == 1}'>First</span> <a
+						th:if='${pager.currentIndex != 1}' th:href="@{${pager.baseUrl}(pageNumber=1)}">First</a>
+					</li>
+					<li th:class="${pager.currentIndex != 1}? '' : 'disabled'"><span
+						th:if='${pager.currentIndex == 1}'>&laquo;</span> <a
+						th:if='${pager.currentIndex != 1}'
+						th:href="@{${pager.baseUrl}(pageNumber=${pager.currentIndex - 1})}"
+						title='Go to previous page'>&laquo;</a></li>
+
+					<li th:each="item : ${#numbers.sequence(pager.beginIndex,pager.endIndex)}"
+						th:class="${item == pager.currentIndex ? 'active' : '' }"><span
+						th:if='${item == pager.currentIndex}' th:text='${item}'>1</span> <a
+						th:if='${item != pager.currentIndex}' th:href="@{${pager.baseUrl}(pageNumber=${item})}">
+							<span th:text='${item}'>1</span>
+					</a></li>
+
+					<li th:class="${pager.currentIndex != pager.totalPageCount}? '' : 'disabled'">
+						<span th:if='${pager.currentIndex == pager.totalPageCount}'>&raquo;</span> <a
+						th:if='${pager.currentIndex != pager.totalPageCount}'
+						th:href="@{${pager.baseUrl}(pageNumber=${pager.currentIndex + 1})}"
+						title='Go to next page'>&raquo;</a>
+					</li>
+					<li th:class="${pager.currentIndex == pager.totalPageCount}? 'disabled' : ''">
+						<span th:if='${pager.currentIndex == pager.totalPageCount}'>Last</span> <a
+						th:if='${pager.currentIndex != pager.totalPageCount}'
+						th:href="@{${pager.baseUrl}(pageNumber=${pager.totalPageCount})}">Last</a>
+					</li>
+		</ul>
+				
+	
+	</div>
+			 
+</blockquote>			 
+
+</div>
+
+
+ 
+
+
+</body>
+</html>

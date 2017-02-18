@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION MENU</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/gatepass/home">Home <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="active text-right"><a href="/gatepass/addvendor">Add Vendor <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		 
+	</ul>
+
+
+</div>
+
+<div layout:fragment="content">
+
+<ul class="breadcrumb">
+			  <li class="active"><i class="icon-home"></i> Vendor Add Page<span class="divider"> &rarr; </span></li>
+			  <li class="active">Data</li>
+	</ul>
+
+<blockquote>
+	  <p>List of Folder/Files available in Operation Department Share directory</p>
+	  <small>From <cite title="Source Title">Tstps Eapps Admin</cite></small>
+
+ 
+ 		        
+        
+        <form class="form-horizontal" action="#" 
+        		th:action="@{/gatepass/addvendor}" enctype="multipart/form-data" 
+        		th:object="${personForm}" method="post">
+        		
+		  <div class="control-group" th:class="${#fields.hasErrors('name')}? 'control-group error' : 'control-group'">
+		    <label class="control-label" for="inputName">Name:</label>
+		    <div class="controls">
+		      <input type="text" class="input-medium" id="inputName" th:field="*{name}" placeholder="Name"/>
+		      <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error in Name</span>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group" th:class="${#fields.hasErrors('age')}? 'control-group error' : 'control-group'">
+		    <label class="control-label" for="inputAge">Age:</label>
+		    <div class="controls">
+		      <input type="text" class="input-medium" id="inputAge" th:field="*{age}" placeholder="Age"/>
+		      <span class="help-block" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Errors in Age</span>
+		    </div>
+		  </div>
+		  
+		   <div class="control-group" th:class="${#fields.hasErrors('file')}? 'control-group error' : 'control-group'">
+		    <label class="control-label" for="inputFile">File:</label>
+		    <div class="controls">
+		      <input type="file" id="inputFile" th:field="*{file}" placeholder="File"/>
+		      <span class="help-block" th:if="${#fields.hasErrors('file')}" th:errors="*{file}">Errors in File</span>
+		    </div>
+		  </div>
+		  
+		  <div class="control-group">
+		   <label class="control-label" for="selectOption">Choose:</label>
+		  <div class="controls">
+		  
+		  <select id="selectOption" class="input-medium">
+		  	  <option value="test1">TEST1</option>
+			  <option value="test2">TEST2</option>
+			  <option value="test2">TEST3</option>
+			  <option value="test3">TEST4</option>
+		  </select>
+		  	
+		  </div>
+		  
+		  </div>
+		  
+		 
+		  
+		  <div class="form-actions">
+			  <button type="submit" class="btn btn-primary">Save changes</button>
+			  <button type="button" class="btn">Cancel</button>
+			</div>
+		  
+		  
+		</form>
+ 
+		 <th:block sec:authorize="hasRole('ROLE_USER')">
+		 		I AM Goswami
+		 
+		 </th:block>
+ 
+ 		<div  sec:authorize="isAuthenticated()">
+ 			true
+ 		</div>
+ 
+ </blockquote>
+
+</div>
+
+
+ 
+
+
+</body>
+</html>

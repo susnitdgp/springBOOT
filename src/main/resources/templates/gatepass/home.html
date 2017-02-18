@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION MENU</li>
+		  <li class="divider"></li>
+		  <li class="active text-right"><a href="/gatepass/home">Home <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/gatepass/addvendor">Add Vendor <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		 
+	</ul>
+
+
+</div>
+
+<div layout:fragment="content">
+
+<ul class="breadcrumb">
+			  <li class="active"><i class="icon-home"></i> Vendor Add Page<span class="divider"> &rarr; </span></li>
+			  <li class="active">Data</li>
+	</ul>
+
+<blockquote>
+	  <p>Gate Pass Application Home Page</p>
+	  <small>From <cite title="Source Title">Tstps Eapps Admin</cite></small>
+
+ 
+ 		        
+        
+       
+		 <th:block sec:authorize="hasRole('ROLE_USER')">
+		 		I AM Goswami
+		 
+		 </th:block>
+ 
+ 		<div  sec:authorize="isAuthenticated()">
+ 			true
+ 		</div>
+ 
+ </blockquote>
+
+</div>
+
+
+ 
+
+
+</body>
+</html>

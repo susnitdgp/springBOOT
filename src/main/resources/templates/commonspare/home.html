@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="commonspare/fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="topMenu">
+	
+	<div class="well well-small">
+	
+		<ul class="nav nav-tabs">
+  			<li class="active"><a href="/commonspare/home"><i class="icon-cog"></i> Common Spare Work Flow <span class="badge badge-success">2</span></a></li>
+  			<li><a href="/commonspare/pendingTaskList"><i class="icon-bell"></i> Pending Task List <span th:text="${pending_task_count}" class="badge badge-alert">3</span></a></li>
+  			<li><a href="#"><i class="icon-ok"></i> Completed Task List <span class="badge badge-success">3</span></a></li>
+		</ul>
+	
+	</div>
+	
+
+
+</div>
+
+ <div layout:fragment="content">
+ 
+	
+	<span class="label label-info">LIST OF ACTIVE PROCESS DEPLOYED INTO SYSTEM</span>
+  		
+	  	<div th:if="${#lists.isEmpty(listProcess)}" class="alert alert-error">
+ 					No Pending tasks available.
+		</div>
+		
+		<div th:if="${not #lists.isEmpty(listProcess)}">
+		
+			 <table id="listProcess" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                  	ID 
+                  </th>
+                  <th>
+                  	Name
+                  </th>
+                  <th>
+                  	DESC
+                  </th>
+                 
+                 
+                   <th>ACTION
+                  </th>             
+                </tr>
+              </thead>
+              <tbody>
+              <tr th:each="process,iterationStatus : ${listProcess}">
+              <td  th:text="${process.id}">1</td>
+              <td  th:text="${process.name}">Name</td>
+              <td  th:text="${process.description}">Name</td>
+             
+             
+              <td><a data-toggle="tooltip" title="Click to Exceute the process" href="#" th:href="@{${process_exec_base_url}(processId=${process.id})}" class="btn btn-mini btn-primary"><i class="icon-white icon-asterisk"></i> Start Process</a></td>
+              
+              </tr>
+              
+              </tbody>
+           </table>
+			 
+		</div>		
+		
+		
+		<img th:src="@{/commonspare/getCSProcessImage(process_id=${process_id})}" src="/commonspare/getCSProcessImage" alt="test Process image"/> 
+		
+		
+	 
+	
+
+	<script type="text/javascript">
+	
+		$('a').tooltip({
+			placement:'bottom'
+		});
+	
+	</script>	
+		
+			
+
+</div>
+
+
+
+</body>
+</html>

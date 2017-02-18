@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+
+<div th:fragment="footer">
+<div class="row-fluid">
+	<div class="span2">
+	
+	</div>
+	<div class="span8">
+		
+			<div  sec:authorize="isAuthenticated()">
+				 &copy; 2016 All Rights Reserved TSTPP, <em>NTPC Ltd. </em> | Roles: <span  sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+			</div>
+			<div  sec:authorize="isAnonymous()">
+	 			 &copy; 2016 All Rights Reserved TSTPP, <em>NTPC Ltd. </em>. Spring Boot : Serving Web Content
+			</div>
+			
+	
+	</div>
+	<div class="span2">
+	
+	</div>
+
+</div>
+
+		
+
+
+</div>
+
+</body>
+
+</html>

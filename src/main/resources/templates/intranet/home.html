@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>DPM File Browser(TSTPS): Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta charset="UTF-8"/>
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="No-Cache,Must-Revalidate,No-Store"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link  th:href="@{/css/b.min.css}" type="text/css" rel="stylesheet" media="screen"/>
+    <link  th:href="@{/css/b-r.min.css}" type="text/css" rel="stylesheet" media="screen"/>
+    <link  th:href="@{/css/t-b.min.css}" type="text/css" rel="stylesheet" media="screen"/>
+     <link  th:href="@{/css/yamm.css}" type="text/css" rel="stylesheet" media="screen"/>
+    
+    
+   
+	<script th:src="@{/js/jquery-1.8.0.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+	
+    
+	<script type="text/javascript">	
+		window.history.forward(0);
+	</script>
+   
+    
+    <style type="text/css">
+    
+     /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -40px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 40px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+     
+   	  * {
+  		
+  		border-radius: 0 !important;
+  		-moz-border-radius: 0 !important;
+		
+		}
+    
+    </style>
+    
+</head>
+<body>
+ <!-- Part 1: Wrap all page content here -->
+ 
+<div id="wrap">
+
+	<hr id="blue_bar" style="display:hidden;margin:0px;background-color:#0099cc;border-top:2px solid #0099cc;"/>
+      <!-- Begin page content -->
+	<div class="container">
+	
+			<div id="header">
+				
+
+				<div class="row-fluid">
+				<div class="span6">
+					
+					<img src="/pics/ntpc_dpm_final.png" th:src="@{/pics/ntpc_dpm_final.png}" width="450px" height="80px"/>
+				
+				</div>
+				
+				<div class="span2" style="margin-left:0px;padding-left:0px;">
+					<div  sec:authorize="isAuthenticated()">
+					
+					
+				
+					</div>
+					<div  sec:authorize="isAnonymous()">
+						<!-- 
+						
+						 -->
+					</div>
+				
+				</div>
+				
+				<div class="span4 text-right">
+					<div  sec:authorize="isAuthenticated()">
+					<form th:action="@{/logout}" method="post">
+						<a href="/home"><i class="icon-home"></i> Home</a>
+						<i class="icon-user"></i> <span class="label label-info" sec:authentication="name"> Susanta</span>
+						<button type="submit" value="Sign Out" class="btn btn-inverse btn-mini"><i class=" icon-white icon-off"></i> Sign Out</button>
+					</form>
+					</div>
+					
+					<div  sec:authorize="isAnonymous()">
+					
+						<ul class="nav nav-pills">
+				  	
+				  			<li><a href="/dpm/BrowseFileSystem"><i class="icon-home"></i > Home</a></li>
+							<li class="disabled"><a href="#"><i class="icon-info-sign"></i> About</a></li>
+							<li class="disabled"><a href="#"><i class="icon-user"></i> Logged in as Guest</a></li>
+							
+						</ul>
+						
+					</div>
+				</div>
+				
+				
+				</div>
+
+		
+			</div>
+		
+		<hr style="margin:0px;background-color:#0099cc;border-top:1px solid #0099cc;"/>	
+		<!-- NAVBAR START-->
+		<div class="navbar yamm" style="margin-bottom:0px;border-radius:0px;">
+        <div class="navbar-inner">
+          <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav1">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">TSTPS-HOME</a>
+            <div class="nav-collapse collapse" id="nav1">
+              <ul class="nav">
+               
+                <!-- Classic list -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> List <b class="caret"></b> </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <!-- Content container to add padding -->
+                      <div class="yamm-content">
+                        <ul class="span2 unstyled">
+                          <li><p><strong>Section Title</strong></p></li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                        </ul>
+                        <ul class="span2 unstyled">
+                          <li><p><strong>Links Title</strong></p></li>
+                          <li>
+                            <a href="#"> Link Item </a>
+                          </li>
+                          <li>
+                            <a href="#"> Link Item </a>
+                          </li>
+                          <li>
+                            <a href="#"> Link Item </a>
+                          </li>
+                          <li>
+                            <a href="#"> Link Item </a>
+                          </li>
+                          <li>
+                            <a href="#"> Link Item </a>
+                          </li>
+                          <li>
+                            <a href="#"> Link Item </a>
+                            </li>
+                        </ul>
+                        <ul class="span2 unstyled">
+                          <li><p><strong>Section Title</strong></p></li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                            </li>
+                        </ul>
+                        <ul class="span2 unstyled">
+                          <li><p><strong>Section Title</strong></p></li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            List Item
+                          </li>
+                          <li>
+                            <ul>
+                              <li>
+                                <a href="#"> Link Item </a>
+                              </li>
+                              <li>
+                                <a href="#"> Link Item </a>
+                              </li>
+                              <li>
+                                <a href="#"> Link Item </a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                
+                <!-- Classic dropdown -->
+                
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Classic <b class="caret"></b> </a><!-- Classic Dropdown -->
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                    <li>
+                      <a tabindex="-1" href="#"> Action </a>
+                    </li>
+                    <li>
+                      <a tabindex="-1" href="#"> Another action </a>
+                    </li>
+                    <li>
+                      <a tabindex="-1" href="#"> Something else here </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a tabindex="-1" href="#"> Separated link </a>
+                    </li>
+                  </ul>
+                </li>
+                
+                <!-- Pictures -->
+                
+                <li class="dropdown yamm-fullwidth">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Pictures <b class="caret"></b> </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <div class="yamm-content">
+                        <!-- thumbnails needs a row-fluid to make span fluid -->
+                        <div class="row-fluid">
+                          <ul class="thumbnails">
+                            <li class="span2">
+                              <a class="thumbnail" href="#"> <img alt="150x190" data-src="holder.js/150x90"/> </a>
+                            </li>
+                            <li class="span2">
+                              <a class="thumbnail" href="#"> <img alt="150x190" data-src="holder.js/150x90"/> </a>
+                            </li>
+                            <li class="span2">
+                              <a class="thumbnail" href="#"> <img alt="150x190" data-src="holder.js/150x90"/> </a>
+                            </li>
+                            <li class="span2">
+                              <a class="thumbnail" href="#"> <img alt="150x190" data-src="holder.js/150x90"/> </a>
+                            </li>
+                            <li class="span2">
+                              <a class="thumbnail" href="#"> <img alt="150x190" data-src="holder.js/150x90"/> </a>
+                            </li>
+                            <li class="span2">
+                              <a class="thumbnail" href="#"> <img alt="150x190" data-src="holder.js/150x90"/> </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+
+			
+			<!-- NAVBAR END -->
+		
+			<hr style="margin:0px;background-color:#0099cc;border-top:1px solid #0099cc;"/>
+		
+		
+		
+			<div class="row-fluid">
+    		<div class="span6" style="width:50%;">
+    		
+				<div id="myCarousel" class="carousel slide" style="margin-bottom:0px;">
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="/pics/bootstrap-mdo-sfmoma-01.jpg" alt=""/>
+                    <div class="carousel-caption">
+                      <h4>First Thumbnail label</h4>
+                      <p>Description of First Picture</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="/pics/bootstrap-mdo-sfmoma-02.jpg" alt=""/>
+                    <div class="carousel-caption">
+                      <h4>Second Thumbnail label</h4>
+                      <p>Description of First Picture</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="/pics/bootstrap-mdo-sfmoma-03.jpg" alt=""/>
+                    <div class="carousel-caption">
+                      <h4>Third Thumbnail label</h4>
+                      <p>Description of First Picture</p>
+                    </div>
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+              </div>
+    		
+		    </div>
+		    <div class="span6" style="margin-left:0px;border-left:1px solid #0099cc;width:50%;">
+				     <div id="plant_data">
+				
+						<ul id="myTab" class="nav nav-tabs nav-tabs-google">
+				              <li class="active">
+				              <a href="#home" data-toggle="tab"><i class="icon-home"></i> Home</a>
+				              </li>
+				              <li><a href="#profile" data-toggle="tab"><i class="icon-search"></i> Genaration Data</a></li>
+				             
+				            </ul>
+				            <div id="myTabContent" class="tab-content">
+				              <div class="tab-pane fade in active" id="home">
+				               			 <table class="table table-condensed table-hover">
+								              <thead>
+								                <tr>
+								                  <th>#</th>
+								                  <th>First Name</th>
+								                  <th>Last Name</th>
+								                  <th>Username</th>
+								                </tr>
+								              </thead>
+								              <tbody>
+								                <tr>
+								                  <td>1</td>
+								                  <td>Mark</td>
+								                  <td>Otto</td>
+								                  <td>@mdo</td>
+								                </tr>
+								                <tr>
+								                  <td>2</td>
+								                  <td>Jacob</td>
+								                  <td>Thornton</td>
+								                  <td>@fat</td>
+								                </tr>
+								                <tr>
+								                  <td>3</td>
+								                   <td>Thornton</td>
+								                    <td>Thornton</td>
+								                  <td>@twitter</td>
+								                </tr>
+								                 <tr>
+								                  <td>3</td>
+								                   <td>Thornton</td>
+								                    <td>Thornton</td>
+								                  <td>@twitter</td>
+								                </tr>
+								                 <tr>
+								                  <td>3</td>
+								                   <td>Thornton</td>
+								                    <td>Thornton</td>
+								                  <td>@twitter</td>
+								                </tr>
+								              </tbody>
+								            </table>
+				              </div>
+				              <div class="tab-pane fade" id="profile">
+				              			
+				              			 <table class="table table-hover">
+							              <thead>
+							                <tr>
+							                  <th>#</th>
+							                  <th>First Name</th>
+							                  <th>Last Name</th>
+							                  <th>Username</th>
+							                </tr>
+							              </thead>
+							              <tbody>
+							                <tr>
+							                  <td>1</td>
+							                  <td>Mark</td>
+							                  <td>Otto</td>
+							                  <td>@mdo</td>
+							                </tr>
+							                <tr>
+							                  <td>2</td>
+							                  <td>Jacob</td>
+							                  <td>Thornton</td>
+							                  <td>@fat</td>
+							                </tr>
+							                <tr>
+							                  <td>3</td>
+							                  <td colspan="2">Larry the Bird</td>
+							                  <td>@twitter</td>
+							                </tr>
+							              </tbody>
+							            </table>
+				                
+				              </div>
+				             
+				            </div>
+				    
+					</div>  
+		    </div>
+		  </div>
+		  <hr style="margin:0px;background-color:#0099cc;border-top:1px solid #0099cc;"/>
+		  <div class="row-fluid">
+    		<div class="span7" style="border-right:1px solid #ddd;width:60%;">
+    		
+    						<ul id="myTab2" class="nav nav-tabs nav-tabs-google">
+				              <li class="active"><a href="#home2" data-toggle="tab"><i class="icon-comment"></i> TSTPS ALERTS</a></li>
+				              <li><a href="#profile2" data-toggle="tab">Profile</a></li>
+				             
+				            </ul>
+				            <div id="myTabContent2" class="tab-content">
+				              <div class="tab-pane fade in active" id="home2">
+				                
+				                <blockquote>
+ 									 <p class="text-info"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+ 									 <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+								</blockquote>
+								
+								<blockquote>
+ 									 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+									<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+								</blockquote>
+								
+								<blockquote>
+ 									 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+									<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+								</blockquote>
+								
+								<blockquote>
+ 									 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+									<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+								</blockquote>
+								
+									<div class="pagination pagination-right">
+									  <ul>
+									    <li><a href="#">Prev</a></li>
+									    <li><a href="#">1</a></li>
+									    <li><a href="#">2</a></li>
+									    <li><a href="#">3</a></li>
+									    <li><a href="#">4</a></li>
+									    <li><a href="#">5</a></li>
+									    <li><a href="#">Next</a></li>
+									  </ul>
+									</div>
+				                
+				               
+				              </div>
+				              <div class="tab-pane fade" id="profile2">
+				                <p>Food truck fixie locavore, loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+				              </div>
+				             
+				            </div>
+    				
+    		
+    		</div>
+    		
+    		<div class="span5" style="margin-left:0px;width:40%;">
+    		<ul class="breadcrumb">
+			  <li class="active"><i class="icon-user"></i> HAPPY BIRTH-DAY</li>
+			 
+			</ul>
+    		
+    				
+    				
+    					
+    		
+    		</div>
+    		
+    		
+    	  </div>
+		
+		
+		
+	
+	</div>
+	<div id="push"></div>
+
+</div>
+
+<div id="footer">
+      <div class="container">
+       
+        <div id="footer">
+			SAMPLE FOOTER CONTENT
+		</div>
+      </div>
+</div>
+
+</body>
+</html>

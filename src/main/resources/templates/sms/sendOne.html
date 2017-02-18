@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION MENU</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/home">Home <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="active text-right"><a href="/sms/sendOne">SMS Send <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/outGoing">SMS Outgoing <i class="icon-arrow-right"></i></a></li>
+		 
+	</ul>
+
+
+</div>
+
+
+ <div layout:fragment="content">
+ <ul class="breadcrumb">
+		  <li class="active">
+		 	<i class="icon-envelope"></i> SMS SENT STATUS PAGE
+		  </li>
+	 
+  </ul>
+ 
+ <blockquote>
+	  <p>List of Folder/Files available in Operation Department Share directory</p>
+	  <small>From <cite title="Source Title">Tstps Eapps Admin</cite></small>
+ 
+
+ 		<h4>SMS SEND SUCCESSFULLY</h4>
+ 
+ 		
+			 
+</blockquote>			 
+
+</div>
+
+
+ 
+
+
+</body>
+</html>

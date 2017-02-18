@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+	
+	
+	<ul class="nav nav-list">
+		  
+		  <li class="nav-header">APPLICATION LIST</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/dpm/BrowseFileSystem">EAPPS DPM <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/home">EAPPS SMS <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>		  
+		  <li class="text-right"><a href="/home/startProcess">START Process <i class="icon-arrow-right"></i></a></li>	  
+	
+	</ul>
+
+
+</div>
+
+ <div layout:fragment="content">
+ 	 
+ 	<ul class="breadcrumb">
+		  <li>
+			<i class="icon-home"></i> TSTPS E-APPS LIST
+		  </li>
+	 
+	</ul>
+
+	<blockquote>
+	
+	 <div id="form"></div>
+    
+	</blockquote>
+
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+        
+    });
+    </script>	
+		
+			
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	<ul class="nav nav-list">
+		  <li class="nav-header">DEPARTMENT LIST</li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'OPN'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=OPN,pageNumber=1)}">Operation Dept <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'CHEM'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=CHEM,pageNumber=1)}">Chemistry Dept <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'MTP'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=MTP,pageNumber=1)}">MTP Dept <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'EEMG'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=EEMG,pageNumber=1)}">EEMG Dept <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'MGR'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=MGR,pageNumber=1)}">MGR Dept <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'CHP'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=CHP,pageNumber=1)}">CHP Dept <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li th:class="${leftmenu.forDept == 'SAFETY'}? 'active text-right' : 'text-right'"><a href="#" th:href="@{${pager.baseUrl}(location=SAFETY,pageNumber=1)}">SAFETY Dept <i class="icon-arrow-right"></i></a></li>
+	
+	</ul>
+
+
+</div>
+
+<div layout:fragment="content">
+
+ 	<ul class="breadcrumb">
+			  <li th:each="item,itrStat: ${breadcrumbs}" th:class="${itrStat.index == (itrStat.size-1)}? 'active' : ''">
+			  	<i class="icon-home" th:if="${itrStat.index == 0}"></i>
+			  	<a href="#" th:href="@{${pager.baseUrl}(location=${item.url},pageNumber=1)}" th:if="${itrStat.index != (itrStat.size-1) and itrStat.index != 0}">
+			  		<span th:text="${#strings.toUpperCase(item.label)}"></span>
+			  	</a>
+			  	<span th:text="${#strings.toUpperCase(item.label)}" th:if="${itrStat.index == (itrStat.size-1) or itrStat.index == 0}"></span>
+			  	<span class="divider" th:if="${itrStat.index != (itrStat.size-1)}">&rarr;</span>
+			  </li>
+			 
+			 
+	</ul>
+
+
+	<blockquote>
+	  <p>List of Folder/Files available in <span th:text="${leftmenu.forDept}" class="label label-important"></span> Department Share directory</p>
+	  <small>From <cite title="Source Title">Tstps Eapps Admin</cite></small>
+	  
+	  		
+			
+			<div th:if="${#lists.isEmpty(contents.pageList)}" class="alert alert-error">
+ 					No Files Available. Folder is empty
+			</div>
+	  		
+	  		<div th:if="${not #lists.isEmpty(contents.pageList)}">
+ 								
+	  		
+	  		 <table id="browseFileSystemTable" class="table">
+              <thead>
+                <tr>
+                  <th>SL No.</th>
+                  <th>TYPE</th>
+                  <th>NAME</th>
+                  <th>Size(Bytes)</th>
+                  <th>
+                  	<a href="#">Creation Time <i class="icon-chevron-down"></i></a>
+                  
+                  </th>
+                  <th>Download</th>
+                 
+                </tr>
+              </thead>
+              <tbody >
+                
+                	<tr th:each="content,iterationStatus : ${contents.pageList}">
+                		<td  th:text="${content.serial}">1</td>
+                		<td>
+                		
+                		<i th:if="${content.folder}" class="icon-folder-close"></i>
+                		<i th:if="${content.file}" class="icon-file"></i>
+                		
+                		</td>
+  						<td><span th:text="${content.name}" th:class="${content.folder}? 'label label-info' : ''">File name</span></td>
+  						<td th:text="${content.size !=null} ? ${#numbers.formatDecimal(content.size,0,0)} : '' ">File Size</td>
+  						<td th:text="${content.creationTime}">File Creation Time</td>
+  						<td>
+  						<a href="#" th:if="${content.file}" th:href="@{|/dpm/download/?path=${content.url}|}"> <i class="icon-download-alt"></i> Download</a>
+  						<a href="#" th:if="${content.folder}" th:href="@{${pager.baseUrl}(location=${content.url},pageNumber=1)}"> <i class="icon-folder-open"></i> Browse</a>
+  						</td>
+					</tr>
+                
+                
+              </tbody>
+            </table>
+     	
+     		</div>
+    
+     	<div class="pagination pagination-right">
+		  
+		  		<ul>
+					<li class="disabled">
+					
+					<a href="#"><span th:text="'Displaying ' + ${pager.currentIndex} + ' of ' + ${pager.totalPageCount} + ' Pages'"></span></a>
+					</li>
+		  
+		  		</ul>
+		  
+		  <ul class="pagination">
+					<li th:class="${pager.currentIndex == 1}? 'disabled' : ''"><span
+						th:if='${pager.currentIndex == 1}'>First</span> <a
+						th:if='${pager.currentIndex != 1}' th:href="@{${pager.baseUrl}(location=${pager.rootPath},pageNumber=1)}">First</a>
+					</li>
+					<li th:class="${pager.currentIndex != 1}? '' : 'disabled'"><span
+						th:if='${pager.currentIndex == 1}'>&laquo;</span> <a
+						th:if='${pager.currentIndex != 1}'
+						th:href="@{${pager.baseUrl}(location=${pager.rootPath},pageNumber=${pager.currentIndex - 1})}"
+						title='Go to previous page'>&laquo;</a></li>
+
+					<li th:each="item : ${#numbers.sequence(pager.beginIndex,pager.endIndex)}"
+						th:class="${item == pager.currentIndex ? 'active' : '' }"><span
+						th:if='${item == pager.currentIndex}' th:text='${item}'>1</span> <a
+						th:if='${item != pager.currentIndex}' th:href="@{${pager.baseUrl}(location=${pager.rootPath},pageNumber=${item})}">
+							<span th:text='${item}'>1</span>
+					</a></li>
+
+					<li th:class="${pager.currentIndex != pager.totalPageCount}? '' : 'disabled'">
+						<span th:if='${pager.currentIndex == pager.totalPageCount}'>&raquo;</span> <a
+						th:if='${pager.currentIndex != pager.totalPageCount}'
+						th:href="@{${pager.baseUrl}(location=${pager.rootPath},pageNumber=${pager.currentIndex + 1})}"
+						title='Go to next page'>&raquo;</a>
+					</li>
+					<li th:class="${pager.currentIndex == pager.totalPageCount}? 'disabled' : ''">
+						<span th:if='${pager.currentIndex == pager.totalPageCount}'>Last</span> <a
+						th:if='${pager.currentIndex != pager.totalPageCount}'
+						th:href="@{${pager.baseUrl}(location=${pager.rootPath},pageNumber=${pager.totalPageCount})}">Last</a>
+					</li>
+		</ul>
+				
+	
+	</div>
+     	
+     
+	</blockquote>
+	
+	<script type="text/javascript">
+	/*
+	
+	$('#browseFileSystemTable tr').hover(function() {
+	    $(this).addClass('info');
+	    
+	    var column=$(this).find('td:first');
+	    console.log(column.html());
+	    
+	}, function() {
+		
+		
+	    $(this).removeClass('info');
+	});
+	
+	*/
+	
+	</script>
+
+	
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="commonspare/fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="topMenu">
+	
+	<div class="well well-small">
+	
+		<ul class="nav nav-tabs">
+  			<li><a href="/commonspare/home"><i class="icon-cog"></i> Common Spare Work Flow <span class="badge badge-success">2</span></a></li>
+  			<li class="active"><a href="/commonspare/pendingTaskList"><i class="icon-bell"></i> Pending Task List <span class="badge badge-success">3</span></a></li>
+  			<li><a href="#"><i class="icon-ok"></i> Completed Task List <span class="badge badge-success">3</span></a></li>
+		</ul>
+	
+	</div>
+	
+
+</div>
+
+ <div layout:fragment="content">
+ 
+	
+	
+	  		
+	  	<div th:if="${#lists.isEmpty(groupMats)}" class="alert alert-error">
+ 					No Pending tasks available.
+		</div>
+		
+		<div th:if="${not #lists.isEmpty(groupMats)}">
+		
+			 <table id="group_mats_list" class="table table-bordered table-condensed">
+              
+              <tbody>
+              <tr class="info">
+              	<td><b>FOR-YEAR</b></td>
+              	<td><b>MAT-CODE</b></td>
+              	<td><b>MAT-DESC</b></td>
+              	<td><b>GROUP-CODE</b></td>
+              	<td><b>ACTIONS</b></td>
+              </tr>
+              
+              <tr th:each="group,iterationStatus : ${groupMats}">
+             
+              <td  th:text="${group.forYear}">GROUP CODE</td>
+              <td  th:text="${group.matCode}">MAT CODE</td>
+              <td  th:text="${group.matMast.matDesc}">MAT CODE</td>
+              <td  th:text="${group.groupCode}">GROUP CODE</td>
+              
+             	<td>
+             		<div class="btn-group">
+					  <a class="btn btn-primary"
+					   th:href="@{${edit_popup_url}(forYear=${group.forYear},matCode=${group.matCode},groupCode=${group.groupCode})}" 
+					   data-toggle="modal" data-target="#myEditModal"><i class="icon-white icon-edit"></i> Edit</a>
+					 
+					  <button class="btn"><i class="icon-remove"></i> Delete</button>
+					  
+					</div>
+             	</td>	
+             
+              </tr>
+              
+              </tbody>
+           </table>
+			 
+		</div>		 
+		
+		<div id="myEditModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 		 <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+		    <h3 id="myModalLabel">Edit Material/Group Code Mapping</h3>
+		  </div>
+		  <div class="modal-body">
+		    <p>One fine body</p>
+		  </div>
+		  <div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		    <button class="btn btn-primary">Save changes</button>
+		  </div>
+		</div>
+		
+		<script type="text/javascript">
+		
+		$('#myEditModal').on('show', function () {
+			
+			$('#myEditModal .modal-body').html('');
+		
+		});
+		
+		
+		</script>
+		
+		<div class="pagination pagination-right">
+		  
+		  		<ul>
+					<li class="disabled">
+					
+					<a href="#"><span th:text="'Displaying ' + ${pager.currentIndex} + ' of ' + ${pager.totalPageCount} + ' Pages'"></span></a>
+					</li>
+		  
+		  		</ul>
+		  
+		  		<ul class="pagination">
+					<li th:class="${pager.currentIndex == 1}? 'disabled' : ''"><span
+						th:if='${pager.currentIndex == 1}'>First</span> <a
+						th:if='${pager.currentIndex != 1}' th:href="@{${pager.baseUrl}(pageNumber=1)}">First</a>
+					</li>
+					<li th:class="${pager.currentIndex != 1}? '' : 'disabled'"><span
+						th:if='${pager.currentIndex == 1}'>&laquo;</span> <a
+						th:if='${pager.currentIndex != 1}'
+						th:href="@{${pager.baseUrl}(pageNumber=${pager.currentIndex - 1})}"
+						title='Go to previous page'>&laquo;</a></li>
+
+					<li th:each="item : ${#numbers.sequence(pager.beginIndex,pager.endIndex)}"
+						th:class="${item == pager.currentIndex ? 'active' : '' }"><span
+						th:if='${item == pager.currentIndex}' th:text='${item}'>1</span> <a
+						th:if='${item != pager.currentIndex}' th:href="@{${pager.baseUrl}(pageNumber=${item})}">
+							<span th:text='${item}'>1</span>
+					</a></li>
+
+					<li th:class="${pager.currentIndex != pager.totalPageCount}? '' : 'disabled'">
+						<span th:if='${pager.currentIndex == pager.totalPageCount}'>&raquo;</span> <a
+						th:if='${pager.currentIndex != pager.totalPageCount}'
+						th:href="@{${pager.baseUrl}(pageNumber=${pager.currentIndex + 1})}"
+						title='Go to next page'>&raquo;</a>
+					</li>
+					<li th:class="${pager.currentIndex == pager.totalPageCount}? 'disabled' : ''">
+						<span th:if='${pager.currentIndex == pager.totalPageCount}'>Last</span> <a
+						th:if='${pager.currentIndex != pager.totalPageCount}'
+						th:href="@{${pager.baseUrl}(pageNumber=${pager.totalPageCount})}">Last</a>
+					</li>
+				</ul>
+				
+	
+	</div>
+		
+		
+			
+
+</div>
+
+
+
+</body>
+</html>

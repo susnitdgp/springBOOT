@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="leftMenu">
+	
+	
+	<ul class="nav nav-list">
+		  <li class="nav-header">APPLICATION LIST</li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/dpm/BrowseFileSystem">EAPPS DPM  <i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/sms/home">EAPPS SMS<i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  
+		 <li class="active text-right"><a href="/home/listProcess">Active Process <span class="badge badge-success" th:text="${process_count}">2</span><i class="icon-arrow-right"></i></a></li>
+		  <li class="divider"></li>
+		  <li class="text-right"><a href="/home/pendingTaskList">Task Pending <span class="badge badge-success" th:text="${pending_task_count}">2</span> <i class="icon-arrow-right"></i></a></li>
+		   <li class="divider"></li>
+		  <li class="text-right"><a href="/home/finishedTaskList">Task Finished <span class="badge badge-success" th:text="${completed_task_count}">2</span> <i class="icon-arrow-right"></i></a></li>
+	</ul>
+
+
+</div>
+
+ <div layout:fragment="content">
+ 
+ 
+
+ 	<ul class="breadcrumb">
+		  <li>
+			<i class="icon-home"></i> TSTPS E-APPS PROCESS LIST
+		  </li>
+	 
+	</ul>
+
+
+	<blockquote>
+	<span class="label label-info">LIST OF ACTIVE PROCESS DEPLOYED INTO SYSTEM</span>
+  	<small>from <cite title="Source Title">TSTPS-EAPPS ADMIN</cite></small>
+	
+	
+		
+	  		
+	  	<div th:if="${#lists.isEmpty(listProcess)}" class="alert alert-error">
+ 					No Pending tasks available.
+		</div>
+		
+		<div th:if="${not #lists.isEmpty(listProcess)}">
+		
+			 <table id="listProcess" class="table">
+              <thead>
+                <tr>
+                  <th>
+                  	ID 
+                  </th>
+                  <th>
+                  	Name
+                  </th>
+                  <th>
+                  	DESC
+                  </th>
+                  <th>
+                  KEY
+                  </th>
+                  <th>VERSION
+                  </th>
+                   <th>ACTION
+                  </th>             
+                </tr>
+              </thead>
+              <tbody>
+              <tr th:each="process,iterationStatus : ${listProcess}">
+              <td  th:text="${process.id}">1</td>
+              <td  th:text="${process.name}">Name</td>
+              <td  th:text="${process.description}">Name</td>
+              <td  th:text="${process.key}">key</td>
+              <td  th:text="${process.version}">Version</td>
+              <td><a href="#" th:href="@{${process_exec_base_url}(processId=${process.id})}" class="btn btn-mini"><i class="icon-asterisk"></i> Invoke</a></td>
+              
+              </tr>
+              
+              </tbody>
+           </table>
+			 
+		</div>		
+		
+		
+		<!-- <img src="/home/getProcessImage" alt="test Process image"/> --> 
+		
+		
+	 
+	</blockquote>
+
+		
+		
+			
+
+</div>
+
+
+
+</body>
+</html>

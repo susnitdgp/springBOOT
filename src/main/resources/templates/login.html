@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="fragments/layout">
+
+<body>
+
+<div layout:fragment="leftMenu">
+
+	
+
+
+</div>
+
+ <div layout:fragment="content">
+ 
+ <blockquote>
+  <p>EAPPS Login Window</p>
+  <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+
+ 
+
+ 	
+
+
+	<form  th:action="@{/login}" method="post">
+	  <fieldset>
+	    <legend>Login:</legend>
+	    <label>User Name:</label>
+	    <input type="text" name="username" class="input-medium" placeholder="Username"/>
+	    <label>Password:</label>
+	    <input type="password" name="password" class="input-medium" placeholder="Password"/>
+	    
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="reset" class="btn btn-inverse">Reset</button>
+		</div>
+	
+	   
+	   
+	  </fieldset>
+	</form>
+	
+	<div th:if="${param.error}">
+    	Invalid username and password.
+	</div>
+	
+	<div th:if="${param.logout}">
+    	You have been logged out.
+	</div>
+	
+	
+	</blockquote>
+
+</div>
+
+</body>
+</html>

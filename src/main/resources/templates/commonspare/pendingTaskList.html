@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ 	  layout:decorator="commonspare/fragments/layout">
+ 	  
+
+<body>
+
+<div layout:fragment="topMenu">
+	
+	<div class="well well-small">
+	
+		<ul class="nav nav-tabs">
+  			<li><a href="/commonspare/home"><i class="icon-cog"></i> Common Spare Work Flow <span class="badge badge-success">2</span></a></li>
+  			<li class="active"><a href="/commonspare/pendingTaskList"><i class="icon-bell"></i> Pending Task List <span class="badge badge-success">3</span></a></li>
+  			<li><a href="#"><i class="icon-ok"></i> Completed Task List <span class="badge badge-success">3</span></a></li>
+		</ul>
+	
+	</div>
+	
+
+</div>
+
+ <div layout:fragment="content">
+ 
+ 
+
+	
+	<span class="label label-info">LIST OF PENDING TASK FOR CANDIDATE GROUP:CS_MTP</span>
+  	
+	
+	  		
+	  	<div th:if="${#lists.isEmpty(tasks)}" class="alert alert-error">
+ 					No Pending tasks available.
+		</div>
+		
+		<div th:if="${not #lists.isEmpty(tasks)}">
+		
+			 <table id="task_list" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                  	TASK-ID 
+                  </th>
+                  <th>
+                  	Name
+                  </th>
+                  <th>
+                  CREATE-TIME
+                  </th>
+                  <th>
+                  PROCESS-ID
+                  </th>
+                  <th>
+                  ACTION
+                  </th>
+                                 
+                </tr>
+              </thead>
+              <tbody>
+              <tr th:each="task,iterationStatus : ${tasks}">
+              <td  th:text="${task.id}">1</td>
+              <td  th:text="${task.name}">Name</td>
+              <td  th:text="${task.createTime}">Name</td>
+              <td  th:text="${task.processId}">Name</td>
+              <td><a href="#" th:href="@{${task_exec_base_url}(taskId=${task.id})}" class="btn btn-mini"><i class="icon-asterisk"></i> Claim Task</a></td>
+              </tr>
+              
+              </tbody>
+           </table>
+			 
+		</div>		 
+		
+		<a href="/commonspare/mtpTask1">MTP TASK1</a>
+			
+
+</div>
+
+
+
+</body>
+</html>

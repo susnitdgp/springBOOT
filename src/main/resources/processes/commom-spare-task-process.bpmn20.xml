@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="CommonSpare">
+  <process id="commonSpareTaskProcess" name="Common Spare Task Process" isExecutable="true" activiti:candidateStarterGroups="CS_MTP">
+    <documentation>Workflow for Common Spare Indent</documentation>
+    <startEvent id="theStart" activiti:initiator="initiator">
+      <documentation>Start Event Documentation</documentation>
+    </startEvent>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <userTask id="bmd_task" name="Task for BMD [CS_BMD]" activiti:candidateGroups="CS_BMD">
+      <documentation>Activity for BMD:- Feed the quantity of material after finding based on Group or Material Code</documentation>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="parallelgateway1" targetRef="bmd_task"></sequenceFlow>
+    <userTask id="tmd_task" name="Task for TMD [CS_TMD]" activiti:candidateGroups="CS_TMD">
+      <documentation>Activity for TMD:- Feed the quantity of material after finding based on Group or Material Code</documentation>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="parallelgateway1" targetRef="tmd_task"></sequenceFlow>
+    <userTask id="chp_task" name="Task for CHP [CS_CHP]" activiti:candidateGroups="CS_CHP">
+      <documentation>Activity for CHP:- Feed the quantity of material after finding based on Group or Material Code</documentation>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="parallelgateway1" targetRef="chp_task"></sequenceFlow>
+    <userTask id="mtp_task" name="Task for MTP [CS_MTP]" activiti:candidateGroups="CS_MTP">
+      <documentation>Activity for MTP:-Prepare the material  in different group</documentation>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="theStart" targetRef="mtp_task"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="mtp_task" targetRef="parallelgateway1"></sequenceFlow>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow7" sourceRef="bmd_task" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="chp_task" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="tmd_task" targetRef="parallelgateway2"></sequenceFlow>
+    <userTask id="mtp_final_task" name="Task For MTP [CS_MTP]" activiti:candidateGroups="CS_MTP"></userTask>
+    <sequenceFlow id="flow10" sourceRef="parallelgateway2" targetRef="mtp_final_task"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow11" sourceRef="mtp_final_task" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_commonSpareTaskProcess">
+    <bpmndi:BPMNPlane bpmnElement="commonSpareTaskProcess" id="BPMNPlane_commonSpareTaskProcess">
+      <bpmndi:BPMNShape bpmnElement="theStart" id="BPMNShape_theStart">
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="124.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="250.0" y="121.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="bmd_task" id="BPMNShape_bmd_task">
+        <omgdc:Bounds height="71.0" width="171.0" x="320.0" y="112.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tmd_task" id="BPMNShape_tmd_task">
+        <omgdc:Bounds height="61.0" width="171.0" x="320.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="chp_task" id="BPMNShape_chp_task">
+        <omgdc:Bounds height="55.0" width="161.0" x="320.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mtp_task" id="BPMNShape_mtp_task">
+        <omgdc:Bounds height="65.0" width="140.0" x="82.0" y="109.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="540.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mtp_final_task" id="BPMNShape_mtp_final_task">
+        <omgdc:Bounds height="71.0" width="171.0" x="611.0" y="112.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="290.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="270.0" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="269.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="270.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="269.0" y="50.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="45.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="82.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="222.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="491.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="481.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="48.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="491.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="580.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="578.0" y="149.0"></omgdi:waypoint>
+        <omgdi:waypoint x="611.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="782.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
